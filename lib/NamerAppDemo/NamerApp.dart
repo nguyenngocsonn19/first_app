@@ -34,6 +34,8 @@ class MyApp extends StatelessWidget{
 class MyAppState extends ChangeNotifier{
   var current = WordPair.random();
 
+
+
   void getNext(){
     current = WordPair.random();
     notifyListeners();
@@ -68,6 +70,9 @@ class _MyHomePageState extends State<MyHomePage>{
         page = GeneratorPage();
       case 1:
         page = FavoritesPage();
+
+      case 2:
+        page = ImageDemo();
       default:
         throw UnimplementedError('no widget for $selectedIndex');
 
@@ -90,6 +95,10 @@ class _MyHomePageState extends State<MyHomePage>{
                     icon: Icon(Icons.favorite) ,
                     label: Text('Favorites'),
                 ),
+                NavigationRailDestination(
+                icon: Icon(Icons.image), // Add an icon for the third page
+                label: Text('Images'),
+                ),// Label for the third page
               ],
 
               selectedIndex: selectedIndex,
@@ -186,6 +195,39 @@ class BigCard extends StatelessWidget{
     );
   }
 }
+class ImageDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Image Demo',
+            style: TextStyle(fontSize: 24),
+          ),
+          SizedBox(height: 20),
+          // Display an image from a network URL
+          Image.network(
+            'https://picsum.photos/200/300?grayscale',
+            width: 200,
+            height: 200,
+            fit: BoxFit.cover,
+          ),
+          SizedBox(height: 20),
+          // Display an image from a local asset
+          Image.asset(
+            'images/pic0.jpg',
+            width: 200,
+            height: 200,
+            fit: BoxFit.cover,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class FavoritesPage extends StatelessWidget{
   @override
   Widget build(BuildContext context){
